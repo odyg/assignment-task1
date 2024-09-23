@@ -7,7 +7,7 @@ Update the file `src/services/api.ts`.
 Before running your 'json-server', get your computer's IP address and update your baseURL to `http://your_ip_address_here:3333` and then run:
 
 ```
-npx json-server --watch db.json --port 3333 --host your_ip_address_here  -m ./node_modules/json-server-auth
+npx json-server --watch db.json --port 3333 --host 192.168.1.86  -m ./node_modules/json-server-auth
 ```
 
 To access your server online without running json-server locally, you can set your baseURL to:
@@ -29,6 +29,8 @@ To run the app in your local environment, you will need to set the IMGBB_API_KEY
 
 ```
 IMGBB_API_KEY="insert_your_api_key_here" npx expo start
+IMGBB_API_KEY="a9f776a2effe2a5953f6bdc844ff78c9" npx expo start
+
 ```
 
 When creating your app build or publishing, import your secret values to EAS running:
@@ -36,3 +38,6 @@ When creating your app build or publishing, import your secret values to EAS run
 ```
 eas secret:push
 ```
+
+sara.barnett@example.com
+password is the password for sara

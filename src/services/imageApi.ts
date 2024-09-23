@@ -10,6 +10,8 @@ import { getEnvironentVariable } from '../utils';
 // To run the app in your local environment, you will need to set the IMGBB_API_KEY
 // when starting the app using:
 // 'IMGBB_API_KEY="insert_your_api_key_here" npx expo start'
+// 'IMGBB_API_KEY="a9f776a2effe2a5953f6bdc844ff78c9" npx expo start'
+
 //
 // When creating your app build or publishing, do not forget to run 'eas secret:push' command
 // to import your secret values to EAS.
