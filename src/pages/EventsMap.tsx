@@ -102,8 +102,6 @@ export default function EventsMap(props: StackScreenProps<any>) {
     }
   }, [futureEvents]); // Re-run when futureEvents change
 
-  const handleNavigateToCreateEvent = () => {};
-
   const handleNavigateToEventDetails = (event: any) => {
     // Find the organizer in the users array by matching the organizerId
     const organizer = users.find((user) => user.id === event.organizerId);
@@ -137,6 +135,10 @@ export default function EventsMap(props: StackScreenProps<any>) {
       authenticationContext?.setValue(undefined);
       navigation.navigate("Login");
     });
+  };
+
+  const handleNavigateToCreateEvent = () => {
+    navigation.navigate("AddEventLocation");
   };
 
   return (
