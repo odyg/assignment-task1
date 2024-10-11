@@ -41,3 +41,7 @@ eas secret:push
 
 sara.barnett@example.com
 password is the password for sara
+
+we still need to make sure we are passing the user info and the image upload is not working
+
+https://images.unsplash.com/photo-1528828465856-0ac27ee2aeb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=max&w=1080&q=80

@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native"; // or RectButton from 'react-native-gesture-handler'
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { styles } from "./EventDetailsStyles";
+import { styles } from "../styles/EventDetailsStyles";
 import customMapStyle from "../../map-style.json";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 

@@ -46,17 +46,21 @@ export const styles = StyleSheet.create({
   },
   dateTimeRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around", // Change this to space-around for less space
+    marginBottom: 20,
   },
   inputHalf: {
-    backgroundColor: "#fff",
-    borderWidth: 1.4,
-    borderColor: "#D3E2E5",
+    backgroundColor: "#FFF",
+    padding: 15,
     borderRadius: 8,
-    height: 56,
-    padding: 16,
-    width: "48%",
-    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "#d3e2e6",
+    width: 200, // Keep the width of each field at 48%
+    textAlign: "left",
+    fontSize: 18,
+    height: 60, // Height of the input field
+    justifyContent: "center", // Vertically center the text
+    marginHorizontal: 5, // Vertically center text
   },
   pictureContainer: {
     borderWidth: 1.4,
@@ -69,10 +73,8 @@ export const styles = StyleSheet.create({
     borderStyle: "dashed",
   },
   buttonContainer: {
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-    right: 20,
+    marginTop: 20, // Adjust the space above the button
+    marginBottom: 40, // Extra space below the button to keep it visible
   },
   label: {
     fontSize: 16,
@@ -90,4 +92,31 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  labelRow: {
+    flexDirection: "row", // Row layout for label and character limit
+    justifyContent: "space-between", // Space between the two elements
+    alignItems: "center",
+    marginBottom: 5, // Spacing between label and input
+  },
+  charLimit: {
+    fontSize: 14, // Smaller font size for the character limit
+    color: "#8fa7b3",
+  },
+  thumbnailContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "50%",
+    height: "100%",
+    position: "relative",
+    borderRadius: 8,
+    justifyContent: "space-between", // Space between image and X
+    flex: 1, // Ensure it takes the full width
+  },
+
+  thumbnail: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 8,
+  },
+  scrollContainer: {},
 });

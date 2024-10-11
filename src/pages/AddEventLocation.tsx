@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/types";
-import { styles } from "./AddEventLocationStyles";
+import { styles } from "../styles/AddEventLocationStyles";
 import BigButton from "../components/BigButton";
 import customMapStyle from "../../map-style.json";
 import mapMarkerImg from "../images/map-marker.png";
+import { StackNavigationProp } from "@react-navigation/stack";
 // import { StackScreenProps } from "@react-navigation/stack";
+type AddEventLocationScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "AddEventDetails"
+>;
 
 // Define a simple interface for location
 interface Location {
@@ -30,8 +35,13 @@ export default function AddEventLocation() {
   };
 
   const handleNext = () => {
-    console.log("Proceeding with selectedLocation:", selectedLocation);
-    navigation.navigate("AddEventDetails"); // This should work
+    if (selectedLocation) {
+      console.log("Proceeding with selectedLocation:", selectedLocation);
+      // Use RootStackParamList to type check the navigation
+      navigation.navigate("AddEventDetails", { selectedLocation });
+    } else {
+      Alert.alert("Error", "Please select a location.");
+    }
   };
 
   const handleResetLocation = () => {

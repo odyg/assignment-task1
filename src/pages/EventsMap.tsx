@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import customMapStyle from "../../map-style.json";
@@ -17,6 +17,7 @@ import { Event } from "../types/Event";
 import { User } from "../types/User";
 import blueMarkerImg from "../images/map-marker-blue.png";
 import greyMarkerImg from "../images/map-marker-grey.png";
+import { styles } from "../styles/EventsMapStyles";
 
 interface LocationCoords {
   latitude: number;
@@ -223,56 +224,56 @@ export default function EventsMap(props: StackScreenProps<any>) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
+// const styles = StyleSheet.create({
+//   container: {
+//     ...StyleSheet.absoluteFillObject,
+//     flex: 1,
+//     justifyContent: "flex-end",
+//     alignItems: "center",
+//   },
 
-  mapStyle: {
-    ...StyleSheet.absoluteFillObject,
-  },
+//   mapStyle: {
+//     ...StyleSheet.absoluteFillObject,
+//   },
 
-  logoutButton: {
-    position: "absolute",
-    top: 70,
-    right: 24,
+//   logoutButton: {
+//     position: "absolute",
+//     top: 70,
+//     right: 24,
 
-    elevation: 3,
-  },
+//     elevation: 3,
+//   },
 
-  footer: {
-    position: "absolute",
-    left: 24,
-    right: 24,
-    bottom: 40,
+//   footer: {
+//     position: "absolute",
+//     left: 24,
+//     right: 24,
+//     bottom: 40,
 
-    backgroundColor: "#FFF",
-    borderRadius: 16,
-    height: 56,
-    paddingLeft: 24,
+//     backgroundColor: "#FFF",
+//     borderRadius: 16,
+//     height: 56,
+//     paddingLeft: 24,
 
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     alignItems: "center",
 
-    elevation: 3,
-  },
+//     elevation: 3,
+//   },
 
-  footerText: {
-    fontFamily: "Nunito_700Bold",
-    color: "#8fa7b3",
-    fontSize: 16,
-  },
+//   footerText: {
+//     fontFamily: "Nunito_700Bold",
+//     color: "#8fa7b3",
+//     fontSize: 16,
+//   },
 
-  smallButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 16,
+//   smallButton: {
+//     width: 56,
+//     height: 56,
+//     borderRadius: 16,
 
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+// });

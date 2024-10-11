@@ -34,22 +34,22 @@
     },
     {
       "id": "d7b8ea73-ba2c-4fc3-9348-9814076124bd",
-      "dateTime": "2025-02-04T16:30:00.000Z",
-      "description": "At the Flames Community Arena, we are offering a free skating lessons day with volunteer instructors.\n\nWe expect volunteer intructors to:\n- be reliable and enthusiastic\n- take initiative and be innovative\n- commit to a minimum of 4 hours of volunteering.",
-      "imageUrl": "https://images.unsplash.com/photo-1528828465856-0ac27ee2aeb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=max&w=1080&q=80",
-      "name": "Free Skating Lessons Day",
-      "organizerId": "3UN3-2L",
-      "position": {
-        "latitude": 51.01222958257112,
-        "longitude": -114.11677222698927
-      },
-      "volunteersNeeded": 10,
       "volunteersIds": [
         "EF-BZ00",
         "gpFfX6e",
-        "Hr-40KW",
-        "elKKrm3"
-      ]
+        "elKKrm3",
+        "Hr-40KW"
+      ],
+      "name": "Free Skating Lessons Day",
+      "description": "At the Flames Community Arena, we are offering a free skating lessons day with volunteer instructors.\n\nWe expect volunteer intructors to:\n- be reliable and enthusiastic\n- take initiative and be innovative\n- commit to a minimum of 4 hours of volunteering.",
+      "dateTime": "2025-02-04T16:30:00.000Z",
+      "organizerId": "3UN3-2L",
+      "imageUrl": "https://images.unsplash.com/photo-1528828465856-0ac27ee2aeb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=max&w=1080&q=80",
+      "volunteersNeeded": 10,
+      "position": {
+        "latitude": 51.01222958257112,
+        "longitude": -114.11677222698927
+      }
     },
     {
       "id": "d1a6b9ea-877d-4711-b8d7-af8f1bce4d29",
@@ -67,6 +67,20 @@
         "EF-BZ00",
         "Q5bVHgP"
       ]
+    },
+    {
+      "id": "Hr-40KW-za9dq3dv3",
+      "name": "Miracle Event",
+      "description": "This is just sample event.",
+      "dateTime": "2024-10-31T23:56:35.831Z",
+      "organizerId": "Hr-40KW",
+      "imageUrl": "https://images.unsplash.com/photo-1528828465856-0ac27ee2aeb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=max&w=1080&q=80",
+      "volunteersNeeded": 5,
+      "position": {
+        "latitude": 51.04180792280573,
+        "longitude": -114.05158214271069
+      },
+      "volunteersIds": []
     }
   ],
   "users": [
