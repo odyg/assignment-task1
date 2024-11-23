@@ -1,51 +1,64 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import { Feather } from "@expo/vector-icons";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../types/types";
-import { styles } from "../styles/AddEventLocationStyles";
-import BigButton from "../components/BigButton";
-import customMapStyle from "../../map-style.json";
-import mapMarkerImg from "../images/map-marker.png";
-import { StackNavigationProp } from "@react-navigation/stack";
-// import { StackScreenProps } from "@react-navigation/stack";
+import React, { useState } from "react"; // Import React and useState for managing component state
+import { View, Text, TouchableOpacity, Alert } from "react-native"; // Import React Native components
+import MapView, { Marker } from "react-native-maps"; // MapView and Marker for map interactions
+import { Feather } from "@expo/vector-icons"; // Feather icons for UI elements
+import { useNavigation, NavigationProp } from "@react-navigation/native"; // React Navigation hooks
+import { RootStackParamList } from "../types/types"; // Type definition for navigation stack
+import { styles } from "../styles/AddEventLocationStyles"; // Custom styles for the component
+import BigButton from "../components/BigButton"; // Reusable button component
+import customMapStyle from "../../map-style.json"; // Custom map styling
+import mapMarkerImg from "../images/map-marker.png"; // Custom map marker image
+import { StackNavigationProp } from "@react-navigation/stack"; // Navigation type definition for type safety
+
+// Define navigation prop for type checking the navigation flow
 type AddEventLocationScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "AddEventDetails"
 >;
 
-// Define a simple interface for location
+// Define a simple interface for location data
 interface Location {
   latitude: number;
   longitude: number;
 }
-export default function AddEventLocation() {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  // const navigation = useNavigation();
 
+export default function AddEventLocation() {
+  // Access the navigation object for controlling navigation between screens
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  // State to track the selected location on the map
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
   );
 
-  // The event is a press on the map, which has the nativeEvent.coordinate
+  /**
+   * Handles map press events and sets the selected location.
+   * @param event - The event object containing the pressed coordinates.
+   */
   const handleMapPress = (event: any) => {
-    const { latitude, longitude } = event.nativeEvent.coordinate;
-    setSelectedLocation({ latitude, longitude });
+    const { latitude, longitude } = event.nativeEvent.coordinate; // Extract coordinates from the event
+    setSelectedLocation({ latitude, longitude }); // Update the selected location state
   };
 
+  /**
+   * Navigates to the next screen with the selected location.
+   * If no location is selected, it shows an alert.
+   */
   const handleNext = () => {
     if (selectedLocation) {
       console.log("Proceeding with selectedLocation:", selectedLocation);
-      // Use RootStackParamList to type check the navigation
+      // Navigate to the AddEventDetails screen with the selected location
       navigation.navigate("AddEventDetails", { selectedLocation });
     } else {
-      Alert.alert("Error", "Please select a location.");
+      Alert.alert("Error", "Please select a location."); // Show an error if no location is selected
     }
   };
 
+  /**
+   * Resets the selected location state.
+   */
   const handleResetLocation = () => {
-    setSelectedLocation(null); // Reset the selected location
+    setSelectedLocation(null); // Clear the selected location
   };
 
   return (

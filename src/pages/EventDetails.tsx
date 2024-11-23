@@ -1,39 +1,38 @@
-import React, { useState, useContext, useEffect } from "react";
-import { View, Text, Image, Button, Linking, ScrollView } from "react-native";
-import { useRoute, RouteProp } from "@react-navigation/native";
-import MapView, { Marker } from "react-native-maps";
-import mapMarkerImg from "../images/map-marker.png";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native"; // or RectButton from 'react-native-gesture-handler'
-import { Feather } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { styles } from "../styles/EventDetailsStyles";
-import customMapStyle from "../../map-style.json";
-import { AuthenticationContext } from "../context/AuthenticationContext";
+import React, { useState, useContext, useEffect } from "react"; // React imports for state, effects, and context
+import { View, Text, Image, Button, Linking, ScrollView } from "react-native"; // Core React Native components
+import { useRoute, RouteProp } from "@react-navigation/native"; // Navigation hooks for accessing route params
+import MapView, { Marker } from "react-native-maps"; // Map components for rendering maps and markers
+import mapMarkerImg from "../images/map-marker.png"; // Custom map marker image
+import { useNavigation } from "@react-navigation/native"; // Hook to navigate between screens
+import { TouchableOpacity } from "react-native"; // Touchable for handling taps
+import { Feather } from "@expo/vector-icons"; // Feather icons for modern UI
+import { FontAwesome } from "@expo/vector-icons"; // Additional icons for calendar and more
+import { styles } from "../styles/EventDetailsStyles"; // Custom styles for this component
+import customMapStyle from "../../map-style.json"; // Custom map styling
+import { AuthenticationContext } from "../context/AuthenticationContext"; // Context for authenticated user
 
-// import { format } from 'date-fns';
-
+// Define route parameters
 type ParamList = {
   EventDetails: {
-    id: string;
-    name: string;
-    description: string;
-    dateTime: Date;
-    locationLat: number;
-    locationLong: number;
-    volunteersNeeded: number;
-    volunteersIds: string[];
-    organizerId: string;
-    currentUserId: string;
-    imageUrl: string; // Added imageUrl field
-    organizerPhone: string; // Pass the dynamically retrieved phone number
-    organizerName: string; // Pass the dynamically retrieved organizer name
+    id: string; // Event ID
+    name: string; // Event name
+    description: string; // Event description
+    dateTime: Date; // Event date and time
+    locationLat: number; // Latitude of event location
+    locationLong: number; // Longitude of event location
+    volunteersNeeded: number; // Total volunteers required
+    volunteersIds: string[]; // List of volunteer IDs
+    organizerId: string; // Organizer's user ID
+    currentUserId: string; // ID of the currently logged-in user
+    imageUrl: string; // URL of the event image
+    organizerPhone: string; // Phone number of the organizer
+    organizerName: string; // Name of the organizer
   };
 };
 
 export default function EventDetails() {
-  const navigation = useNavigation();
-  const route = useRoute<RouteProp<ParamList, "EventDetails">>();
+  const navigation = useNavigation(); // Hook for navigation
+  const route = useRoute<RouteProp<ParamList, "EventDetails">>(); // Access route parameters
   const {
     id,
     name,
@@ -48,14 +47,14 @@ export default function EventDetails() {
     imageUrl,
     description,
     dateTime,
-  } = route.params;
+  } = route.params; // Destructure route parameters
 
   const [volunteersIds, setVolunteersIds] = useState<string[]>([]); // Initialize state for volunteersIds
 
   // Fetch the initial event data when the component loads
   useEffect(() => {
     const fetchEventData = async () => {
-      const response = await fetch(`http://192.168.1.86:3333/events/${id}`);
+      const response = await fetch(`http://192.168.1.86:3333/events/${id}`); // API call for event data
       const eventData = await response.json();
       setVolunteersIds(eventData.volunteersIds); // Set the initial volunteers
     };
@@ -63,6 +62,7 @@ export default function EventDetails() {
     fetchEventData();
   }, []);
 
+  // Check if the current user has already volunteered or if the team is full
   const hasVolunteered = volunteersIds.includes(currentUserId);
   const teamIsFull = volunteersIds.length >= volunteersNeeded;
   console.log(dateTime); // Log the dateTime to the console
@@ -107,7 +107,10 @@ export default function EventDetails() {
   const handleSharePress = () => {
     alert("Share button pressed!");
   };
-
+  /**
+   * Handles volunteer button press.
+   * Adds the current user to the volunteer list if allowed.
+   */
   const handleVolunteerPress = async () => {
     if (!teamIsFull && !hasVolunteered) {
       try {

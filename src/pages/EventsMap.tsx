@@ -1,24 +1,24 @@
-import { Feather } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StackScreenProps } from "@react-navigation/stack";
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { Image, Text, View } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import customMapStyle from "../../map-style.json";
-import * as MapSettings from "../constants/MapSettings";
-import { AuthenticationContext } from "../context/AuthenticationContext";
-import mapMarkerImg from "../images/map-marker.png";
-import * as Location from "expo-location"; // Import Location for fetching user's location
-import { useIsFocused } from "@react-navigation/native"; // Import useIsFocused
-// import { useNavigation } from '@react-navigation/native';
-import axios from "axios";
-import { Event } from "../types/Event";
-import { User } from "../types/User";
-import blueMarkerImg from "../images/map-marker-blue.png";
-import greyMarkerImg from "../images/map-marker-grey.png";
-import { styles } from "../styles/EventsMapStyles";
+import { Feather } from "@expo/vector-icons"; // Feather icons for UI
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Persistent storage for user session
+import { StackScreenProps } from "@react-navigation/stack"; // Type for navigation props
+import React, { useContext, useEffect, useState, useRef } from "react"; // React hooks
+import { Image, Text, View } from "react-native"; // Core React Native components
+import { RectButton } from "react-native-gesture-handler"; // Button for touch interactions
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"; // Map components
+import customMapStyle from "../../map-style.json"; // Custom map styling
+import * as MapSettings from "../constants/MapSettings"; // Map settings
+import { AuthenticationContext } from "../context/AuthenticationContext"; // Auth context
+import mapMarkerImg from "../images/map-marker.png"; // Default marker image
+import * as Location from "expo-location"; // Location services
+import { useIsFocused } from "@react-navigation/native"; // Hook to detect screen focus
+import axios from "axios"; // HTTP requests
+import { Event } from "../types/Event"; // Event type definition
+import { User } from "../types/User"; // User type definition
+import blueMarkerImg from "../images/map-marker-blue.png"; // Marker image for volunteered events
+import greyMarkerImg from "../images/map-marker-grey.png"; // Marker image for full events
+import { styles } from "../styles/EventsMapStyles"; // Custom styles
 
+// Define interface for user location
 interface LocationCoords {
   latitude: number;
   longitude: number;
@@ -27,25 +27,24 @@ interface LocationCoords {
 }
 
 export default function EventsMap(props: StackScreenProps<any>) {
-  const [events, setEvents] = useState<Event[]>([]); // Explicitly define the type as an array of Event
-  const [users, setUsers] = useState<User[]>([]); // Explicitly define the type as an array of User
-
+  const [events, setEvents] = useState<Event[]>([]); // State for storing events
+  const [users, setUsers] = useState<User[]>([]); // State for storing users
   const { navigation } = props;
-  const authenticationContext = useContext(AuthenticationContext);
-  const mapViewRef = useRef<MapView>(null);
+  const authenticationContext = useContext(AuthenticationContext); // Access auth context
+  const mapViewRef = useRef<MapView>(null); // Reference to the map view
+  const [userLocation, setUserLocation] = useState<LocationCoords | null>(null); // User's current location
+  const isFocused = useIsFocused(); // Detect when the screen is focused
 
-  const [userLocation, setUserLocation] = useState<LocationCoords | null>(null);
-  const isFocused = useIsFocused();
-  // Filter events to only include future events
+  // Filter future events
   const futureEvents = events.filter((event) => {
     const eventDate = new Date(event.dateTime);
-    const currentDate = new Date();
-    return eventDate >= currentDate; // Only return future events
+    return eventDate >= new Date(); // Include only future events
   });
 
-  //=================================
-
-  // Fetch events and users when the component mounts or when it becomes focused
+  /**
+   * Fetch events and users from the server.
+   * Runs when the screen is focused.
+   */
   useEffect(() => {
     const fetchEventsAndUsers = async () => {
       try {
@@ -68,7 +67,10 @@ export default function EventsMap(props: StackScreenProps<any>) {
     }
   }, [isFocused]); // Only runs when the screen is focused
 
-  // Fetch user's location when the component mounts
+  /**
+   * Fetch user's current location.
+   * Runs once when the component mounts.
+   */
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -86,7 +88,10 @@ export default function EventsMap(props: StackScreenProps<any>) {
       });
     })();
   }, []);
-
+  /**
+   * Adjust map view to include all future events.
+   * Runs whenever the future events change.
+   */
   useEffect(() => {
     if (mapViewRef.current && futureEvents.length > 0) {
       // Get all future event positions
@@ -103,6 +108,9 @@ export default function EventsMap(props: StackScreenProps<any>) {
     }
   }, [futureEvents]); // Re-run when futureEvents change
 
+  /**
+   * Navigate to the EventDetails screen with event details.
+   */
   const handleNavigateToEventDetails = (event: any) => {
     // Find the organizer in the users array by matching the organizerId
     const organizer = users.find((user) => user.id === event.organizerId);
@@ -131,6 +139,9 @@ export default function EventsMap(props: StackScreenProps<any>) {
     });
   };
 
+  /**
+   * Log the user out by clearing stored data.
+   */
   const handleLogout = async () => {
     AsyncStorage.multiRemove(["userInfo", "accessToken"]).then(() => {
       authenticationContext?.setValue(undefined);
@@ -138,6 +149,9 @@ export default function EventsMap(props: StackScreenProps<any>) {
     });
   };
 
+  /**
+   * Navigate to the AddEventLocation screen for creating a new event.
+   */
   const handleNavigateToCreateEvent = () => {
     navigation.navigate("AddEventLocation");
   };
